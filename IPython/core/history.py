@@ -204,7 +204,8 @@ class HistoryAccessor(Configurable):
             return
         
         # use detect_types so that timestamps return datetime objects
-        kwargs = dict(detect_types=sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES)
+        kwargs = dict(detect_types=sqlite3.PARSE_DECLTYPES|sqlite3.PARSE_COLNAMES,
+                      check_same_thread=False)
         kwargs.update(self.connection_options)
         self.db = sqlite3.connect(self.hist_file, **kwargs)
         self.db.execute("""CREATE TABLE IF NOT EXISTS sessions (session integer
